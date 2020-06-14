@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      DPDK Quick Reference &middot; Marco Spaziani Brunella
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+	<!-- <div class="container"> -->
+  <div 
+    <div class="sidebar-about">
+      <h2>
+        <a href="/">
+          Marco Spaziani Brunella
+        </a>
+      </h2>
+    </div>
+
+    <img src="/public/assets/profile_pic.jpg" alt="hi" class="inline"/>
+
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Whoami</a>
+
+      
+
+      
+      
+        
+          
+            <a class="sidebar-nav-item" href="/01_research_projects/">Research Projects</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/02_freelance_activities/">Freelance Activities</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/03_teaching/">Teaching</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/04_pubblications/">Pubblications</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/05_Articles/">Posts</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/06_contacts/">Contacts</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    </nav>
+    <a style="display: inline-block; margin-left: auto; margin-right: auto; height: 30px;" href="https://www.linkedin.com/in/marco-spaziani-brunella/"> <img src="https://img.icons8.com/color/32/000000/linkedin"/></a>
+    <a style="display: inline-block; margin-left: auto; margin-right: auto; height: 30px;" href="https://www.instagram.com/wernerh__/"> <img src="https://img.icons8.com/fluent/32/000000/instagram-new.png"/></a>
+    <a style="display: inline-block; margin-left: auto; margin-right: auto; height: 30px;" href="https://twitter.com/marcux_95"> <img src="https://img.icons8.com/fluent/32/000000/twitter.png"/></a>
+    <a style="display: inline-block; margin-left: auto; margin-right: auto; height: 30px;" href="https://gitlab.com/marcux_95"> <img src="https://img.icons8.com/color/32/000000/gitlab.png"/></a>
+  </div>
+</div>
+
+
+    <div class="content container">
+	    <div class="post">
+  <h1 class="post-title">DPDK Quick Reference</h1>
+  <span class="post-date">12 Feb 2020</span>
+  <h2 id="compile-the-igb_uio-dpdk-driver">Compile the igb_uio DPDK driver</h2>
+<p>Suppose <em>install_dir</em> is /opt:</p>
+<pre><code class="language-bash">sudo -s
+$ cd /opt/dpdk-19.05
+$ make config T=x86_64-native-linuxapp-gcc
+$ make install T=x86_64-native-linuxapp-gcc -j 8
+</code></pre>
+
+<h2 id="insert-the-igb_uio-dpdk-driver">Insert the igb_uio DPDK driver</h2>
+<pre><code class="language-bash">$ sudo -s
+$ cd /opt/dpdk-19.05/x86_64-native-linuxapp-gcc
+$ modprobe uio
+$ insmod kmod/igb_uio.ko
+</code></pre>
+<h2 id="bind-interfaces-to-dpdk">Bind interfaces to DPDK</h2>
+
+<pre><code class="language-bash">$ /usr/local/sbin/dpdk-devbind -s #List all available interfaces and status
+
+Network devices using DPDK-compatible driver
+============================================
+0000:81:00.1 'Ethernet 10G 2P X520 Adapter 154d' drv=igb_uio unused=ixgbe
+
+Network devices using kernel driver
+===================================
+0000:01:00.0 'I350 Gigabit Network Connection 1521' if=eno1 drv=igb unused=igb_uio *Active*
+0000:01:00.1 'I350 Gigabit Network Connection 1521' if=eno2 drv=igb unused=igb_uio 
+0000:01:00.2 'I350 Gigabit Network Connection 1521' if=eno3 drv=igb unused=igb_uio 
+0000:01:00.3 'I350 Gigabit Network Connection 1521' if=eno4 drv=igb unused=igb_uio 
+0000:03:00.0 'Ethernet 10G 2P X520 Adapter 154d' if=eth0 drv=ixgbe unused=igb_uio 
+0000:03:00.1 'Ethernet 10G 2P X520 Adapter 154d' if=eth1 drv=ixgbe unused=igb_uio 
+
+Other Network devices
+=====================
+0000:81:00.0 'Ethernet 10G 2P X520 Adapter 154d' unused=ixgbe,igb_uio
+
+No 'Crypto' devices detected
+============================
+
+No 'Eventdev' devices detected
+==============================
+
+No 'Mempool' devices detected
+=============================
+
+No 'Compress' devices detected
+==============================
+
+</code></pre>
+<p>To bind an interface, record the id xxxx:xx:xx.x (e.g. 0000:03:00.1) and:</p>
+<pre><code class="language-bash">$ dpdk-devbind -b igb_uio xxxx:xx:xx.x
+</code></pre>
+<p>Now the interface should appear under <em>Network devices using DPDK-compatible driver</em> under dpdk-devbind -s.</p>
+
+<h2 id="unbind-interfaces-to-dpdk">Unbind interfaces to DPDK</h2>
+<pre><code class="language-bash">$ dpdk-devbind -u xxxx:xx:xx.x
+</code></pre>
+
+<h2 id="bind-interfaces-to-kernel">Bind interfaces to Kernel</h2>
+
+<pre><code class="language-bash">$ dpdk-devbind -b "ixgbe|igb" xxxx:xx:xx.x
+</code></pre>
+
+
+</div>
+
+
+    </div>
+
+  </body>
+</html>
