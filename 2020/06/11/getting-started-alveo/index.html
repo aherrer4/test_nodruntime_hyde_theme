@@ -23,7 +23,7 @@
 
   <!-- Icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
-                                 <link rel="shortcut icon" href="./public/favicon.ico">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
@@ -111,14 +111,11 @@
 	    <div class="post">
   <h1 class="post-title">Getting started with Xilinx Alveo U50 100Gbps designs</h1>
   <span class="post-date">11 Jun 2020</span>
-  <p>In late 2018, Xilinx released a new series of production-ready boards under the name of Alveo family, featured with custom-built Virtex Ultrascale+ FPGAs.
-They are meant to accelerate the Artificial Intelligence and Machine Learning tasks with ad-hoc “shields” that can be loaded on the device.
-To develop your own application, Xilinx released a platform called Vitis, which provides High Level Synthesis tools to accelerate your development on these boards.</p>
+  <p>In late 2018, Xilinx released a new series of production-ready boards under the name of Alveo family, featured with custom-built Virtex Ultrascale+ FPGAs. They are meant to accelerate Artificial Intelligence and Machine Learning tasks with ad-hoc “shields” that can be loaded on the device. To develop your applications, Xilinx released a platform called Vitis, which provides High-Level Synthesis tools to accelerate the development on these boards.</p>
 
-<p>Here at Axbryd, we targetted the Alveo U50 to start develop our 100Gbps applications. The choice was due to their relatively low-price and our expertise with the NetFPGA-SUME, our previous target platform. Unfortunately, since those device are targeted as “Datacenter Acceleration Cards”, they do not come with any reference designs.</p>
+<p>Here at Axbryd, we targetted the Alveo U50 to start to develop our 100Gbps applications. The choice was due to their relatively low-price and our expertise with the NetFPGA-SUME, our previous target platform. Unfortunately, since those devices are targeted as “Datacenter Acceleration Cards”, they do not come with any reference designs.</p>
 
-<p>In this post, I will show you how you can setup your 100Gbps datapath to quickly integrate your HDL business logic and start developing on the Alveo U50 with plain Vivado. I haven’t tried on other boards of the same family, but the process should be identical.</p>
-
+<p>In this post, I will show you how you can set up a 100Gbps datapath to quickly integrate your HDL business logic and start developing on the Alveo U50 with plain Xilinx Vivado.  No particular licenses for synthesis are needed. Although I haven’t tried on other boards of the same family, the process should be easily portable.</p>
 <html>
 <script>
 
@@ -181,7 +178,7 @@ starteffect()
 	</script>
 	</html>
 
-<p>Xilinx has made the Alveo Family part of the Xilinx University Program (XUP). More info about donation requests in this Linkedin post.</p>
+<p>Xilinx has made the Alveo Family part of the Xilinx University Program (XUP). More info about donation requests in this Linkedin <a href="https://www.linkedin.com/feed/update/urn:li:activity:6675696571973156864/">post</a>.</p>
 
 <hr />
 
