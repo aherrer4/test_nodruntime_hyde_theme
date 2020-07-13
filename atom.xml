@@ -4,7 +4,7 @@
  <title>Marco Spaziani Brunella</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2020-07-04T13:10:20+02:00</updated>
+ <updated>2020-07-13T17:32:43+02:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Marco Spaziani Brunella</name>
@@ -90,22 +90,21 @@ starteffect()
 
 &lt;h2 id=&quot;getting-started&quot;&gt;Getting Started&lt;/h2&gt;
 
-&lt;p&gt;Download and install the latest version of Vivado, in my case was the 2019.2.
-Be sure to select all the devices available.&lt;/p&gt;
+&lt;p&gt;Download and install the latest version of Vivado. This guide has been tested on Vivado 2019.2 and 2020.1.&lt;/p&gt;
 
-&lt;p&gt;Once the installation has finished, start Vivado and head over to:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;(toolbar)  Tools --&amp;gt; Download Latest Boards --&amp;gt; Download
+&lt;p&gt;Once the installation is finished, download the necessary files from &lt;a href=&quot;../../../../public/assets/u50_pack.zip&quot;&gt;here&lt;/a&gt; and extract it in your home directory.&lt;/p&gt;
+
+&lt;p&gt;The zip contains a modified version of the board files (the ones on the Xilinx site are not working as far of 13-Jul-2020) and the original XDC file.&lt;/p&gt;
+
+&lt;p&gt;To install the board files, if your Vivado’s installation path is &lt;code&gt;/opt&lt;/code&gt;, just:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ mv ~/au50 /opt/Xilinx/Vivado/20XY.Z/data/boards/board_files
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Wait for the process to complete, then restart Vivado.
-Once Vivado is up again, let’s create a new project called &lt;strong&gt;alveo_u50_datapath&lt;/strong&gt;.
-Select &lt;em&gt;RTL Project&lt;/em&gt; and skip the &lt;em&gt;Add Sources&lt;/em&gt; and &lt;em&gt;Add Constraints&lt;/em&gt; menu.
-On the &lt;em&gt;Default Part&lt;/em&gt; menu, let’s switch to &lt;em&gt;Boards&lt;/em&gt; and select the &lt;strong&gt;Alveo U50 Datacenter Acceleration Card&lt;/strong&gt;.
-Beware that there is another similar board, the U50DD. This is a production sample, not meant for the market.&lt;/p&gt;
+&lt;p&gt;Let’s create a new project called &lt;code&gt;alveo_u50_datapath&lt;/code&gt;. Select RTL Project and skip the Add Sources and Add Constraints menu.&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;On the Default Part menu, let’s switch to &lt;em&gt;Boards&lt;/em&gt; and select the &lt;code&gt;Alveo U50 Datacenter Acceleration Card&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;vivado-setup&quot;&gt;Vivado Setup&lt;/h2&gt;
+&lt;p&gt;Beware that there is another similar board, the U50DD. This is a production sample, not meant for the market.&lt;/p&gt;
 
 &lt;p&gt;Once the project has been created, we can dive deep into the datapath building. The idea is to have the following datapath:&lt;/p&gt;
 &lt;html&gt;
@@ -118,18 +117,8 @@ Beware that there is another similar board, the U50DD. This is a production samp
 &lt;/body&gt;
 &lt;/html&gt;
 
-&lt;p&gt;Before starting the real stuff, we need some key files: the board files and the constraints file.
-Lets clone the Xilinx Board Store Repository:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;$ cd ~
-$ git clone https://github.com/Xilinx/XilinxBoardStore.git
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now it’s time to install the Xilinx Constraint (.xdc) file extracted from the zip.&lt;/p&gt;
 
-&lt;p&gt;Now, head over to the Vivado’s TCL Console and import the board files:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;(TCL shell) set_param board.repoPaths [list &quot;~/XilinxBoardStore/boards/Xilinx&quot;]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now it’s tiime to install the Xilinx Constraint (.xdc) file.
-Follow &lt;a href=&quot;https://www.xilinx.com/member/forms/download/design-license.html?cid=5e944c20-ec31-43e6-ae7f-14fd739d0d6f&amp;amp;filename=xtp576-alveo-u50-xdc.zip&quot; target=&quot;_blank&quot;&gt;this&lt;/a&gt; link, accept the license agreement(register if you haven’t done yet) and download the &lt;em&gt;.zip&lt;/em&gt; file.
-The archive contains the &lt;em&gt;alveo-u50qsfp-xdc.xdc&lt;/em&gt; file. Extract the archive and, in Vivado:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;(Flow Navigator) Add Sources --&amp;gt; Add or Create Constraints --&amp;gt; Add Files --&amp;gt; (path/to/)alveo-u50qsfp-xdc.xdc --&amp;gt; Finish
 &lt;/code&gt;&lt;/pre&gt;
 

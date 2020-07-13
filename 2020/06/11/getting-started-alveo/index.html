@@ -185,22 +185,21 @@ starteffect()
 
 <h2 id="getting-started">Getting Started</h2>
 
-<p>Download and install the latest version of Vivado, in my case was the 2019.2.
-Be sure to select all the devices available.</p>
+<p>Download and install the latest version of Vivado. This guide has been tested on Vivado 2019.2 and 2020.1.</p>
 
-<p>Once the installation has finished, start Vivado and head over to:</p>
-<pre><code>(toolbar)  Tools --&gt; Download Latest Boards --&gt; Download
+<p>Once the installation is finished, download the necessary files from <a href="../../../../public/assets/u50_pack.zip">here</a> and extract it in your home directory.</p>
+
+<p>The zip contains a modified version of the board files (the ones on the Xilinx site are not working as far of 13-Jul-2020) and the original XDC file.</p>
+
+<p>To install the board files, if your Vivado’s installation path is <code>/opt</code>, just:</p>
+<pre><code>$ mv ~/au50 /opt/Xilinx/Vivado/20XY.Z/data/boards/board_files
 </code></pre>
 
-<p>Wait for the process to complete, then restart Vivado.
-Once Vivado is up again, let’s create a new project called <strong>alveo_u50_datapath</strong>.
-Select <em>RTL Project</em> and skip the <em>Add Sources</em> and <em>Add Constraints</em> menu.
-On the <em>Default Part</em> menu, let’s switch to <em>Boards</em> and select the <strong>Alveo U50 Datacenter Acceleration Card</strong>.
-Beware that there is another similar board, the U50DD. This is a production sample, not meant for the market.</p>
+<p>Let’s create a new project called <code>alveo_u50_datapath</code>. Select RTL Project and skip the Add Sources and Add Constraints menu.</p>
 
-<hr />
+<p>On the Default Part menu, let’s switch to <em>Boards</em> and select the <code>Alveo U50 Datacenter Acceleration Card</code>.</p>
 
-<h2 id="vivado-setup">Vivado Setup</h2>
+<p>Beware that there is another similar board, the U50DD. This is a production sample, not meant for the market.</p>
 
 <p>Once the project has been created, we can dive deep into the datapath building. The idea is to have the following datapath:</p>
 <html>
@@ -213,18 +212,8 @@ Beware that there is another similar board, the U50DD. This is a production samp
 </body>
 </html>
 
-<p>Before starting the real stuff, we need some key files: the board files and the constraints file.
-Lets clone the Xilinx Board Store Repository:</p>
-<pre><code class="language-bash">$ cd ~
-$ git clone https://github.com/Xilinx/XilinxBoardStore.git
-</code></pre>
+<p>Now it’s time to install the Xilinx Constraint (.xdc) file extracted from the zip.</p>
 
-<p>Now, head over to the Vivado’s TCL Console and import the board files:</p>
-<pre><code>(TCL shell) set_param board.repoPaths [list "~/XilinxBoardStore/boards/Xilinx"]
-</code></pre>
-<p>Now it’s tiime to install the Xilinx Constraint (.xdc) file.
-Follow <a href="https://www.xilinx.com/member/forms/download/design-license.html?cid=5e944c20-ec31-43e6-ae7f-14fd739d0d6f&amp;filename=xtp576-alveo-u50-xdc.zip" target="_blank">this</a> link, accept the license agreement(register if you haven’t done yet) and download the <em>.zip</em> file.
-The archive contains the <em>alveo-u50qsfp-xdc.xdc</em> file. Extract the archive and, in Vivado:</p>
 <pre><code>(Flow Navigator) Add Sources --&gt; Add or Create Constraints --&gt; Add Files --&gt; (path/to/)alveo-u50qsfp-xdc.xdc --&gt; Finish
 </code></pre>
 
